@@ -349,9 +349,9 @@
   /* ─── PRICING ─── */
   .pricing-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: 20px;
-    max-width: 960px;
+    max-width: 720px;
     margin-top: 48px;
   }
   .pricing-card {
@@ -558,19 +558,153 @@
   ::-webkit-scrollbar { width: 4px; }
   ::-webkit-scrollbar-track { background: var(--black); }
   ::-webkit-scrollbar-thumb { background: var(--border); }
+  /* HAMBURGER */
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    z-index: 101;
+  }
+  .hamburger span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: var(--white);
+    border-radius: 2px;
+    transition: all 0.25s;
+  }
+  .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  /* ─── MOBILE RESPONSIVE ─── */
+  @media (max-width: 768px) {
+
+    /* NAV */
+    nav { padding: 14px 20px; }
+    .hamburger { display: flex; }
+    nav ul {
+      display: none;
+      position: fixed;
+      top: 56px; left: 0; right: 0;
+      background: rgba(10,10,10,0.98);
+      backdrop-filter: blur(12px);
+      flex-direction: column;
+      gap: 0;
+      padding: 16px 0 24px;
+      border-bottom: 1px solid var(--border);
+      z-index: 99;
+    }
+    nav ul.open { display: flex; }
+    nav ul li { width: 100%; }
+    nav a {
+      display: block;
+      padding: 14px 24px;
+      font-size: 16px;
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-cta {
+      margin: 16px 20px 0;
+      display: block;
+      text-align: center;
+      border-radius: 4px;
+      border-bottom: none !important;
+    }
+    .logo { font-size: 22px; }
+
+    /* HERO */
+    .hero { padding: 100px 20px 60px; }
+    .hero h1 { font-size: 56px; }
+    .hero-sub { font-size: 16px; }
+    .hero-actions {
+      flex-direction: column;
+      align-items: stretch;
+    }
+    .btn-primary, .btn-outline {
+      text-align: center;
+      width: 100%;
+      padding: 14px 20px;
+    }
+
+    /* SECTIONS */
+    section { padding: 60px 20px; }
+
+    /* PROBLEM */
+    .problem-grid { grid-template-columns: 1fr; gap: 32px; }
+
+    /* SERVICES */
+    .services-grid { grid-template-columns: 1fr; }
+    .service-card { padding: 28px 24px; }
+
+    /* MARKET */
+    .market-grid { grid-template-columns: 1fr; gap: 40px; }
+    .client-types { grid-template-columns: 1fr 1fr; }
+
+    /* PRICING */
+    .pricing-grid { grid-template-columns: 1fr; gap: 16px; }
+    .pricing-card.featured { order: -1; }
+
+    /* CTA */
+    .cta-section { padding: 80px 20px; }
+    .cta-section h2 { font-size: 48px !important; }
+    .cta-actions { flex-direction: column; align-items: stretch; gap: 12px; }
+    .cta-actions .btn-primary,
+    .cta-actions .btn-outline {
+      font-size: 15px !important;
+      padding: 16px 20px !important;
+      text-align: center;
+    }
+
+    /* FOOTER */
+    footer {
+      flex-direction: column;
+      gap: 8px;
+      text-align: center;
+      padding: 24px 20px;
+    }
+
+    /* HEADINGS */
+    h2 { font-size: 40px !important; }
+  }
+
+  @media (max-width: 480px) {
+    .hero h1 { font-size: 44px; }
+    .client-types { grid-template-columns: 1fr; }
+    .plan-features li { font-size: 13px; }
+  }
+
 </style>
 </head>
 <body>
 
 <!-- NAV -->
 <nav>
-  <div class="logo">APEX<span>Digital</span></div>
-  <ul>
+  <a href="https://apexdigitalbos.com" style="display:flex; align-items:center; text-decoration:none;">
+    <svg width="140" height="36" viewBox="0 0 680 240" xmlns="http://www.w3.org/2000/svg">
+      <g transform="translate(100, 120)">
+        <polygon points="0,-72 62,36 -62,36" fill="#e8b84b"/>
+        <polygon points="0,-36 28,16 -28,16" fill="#0a0a0a"/>
+        <rect x="-62" y="28" width="124" height="12" rx="2" fill="#c49a2e"/>
+        <line x1="-62" y1="36" x2="-18" y2="-10" stroke="#c49a2e" stroke-width="2.5" stroke-linecap="round"/>
+        <line x1="62" y1="36" x2="18" y2="-10" stroke="#c49a2e" stroke-width="2.5" stroke-linecap="round"/>
+      </g>
+      <text x="200" y="103" font-family="'Bebas Neue', sans-serif" font-size="82" letter-spacing="4" fill="#f2f1ed">APEX</text>
+      <text x="201" y="155" font-family="'Bebas Neue', sans-serif" font-size="52" letter-spacing="8" fill="#e8b84b">DIGITAL</text>
+    </svg>
+  </a>
+  <ul id="nav-links">
     <li><a href="#services">Services</a></li>
     <li><a href="#market">Market</a></li>
     <li><a href="#pricing">Pricing</a></li>
     <li><a href="https://apexdigitalbos.com/audit-form.html" target="_blank" class="nav-cta">Get Started</a></li>
   </ul>
+  <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
 
 <!-- HERO -->
@@ -796,7 +930,7 @@
         <li>Basic website audit + recommendations</li>
         <li>Email support</li>
       </ul>
-      <button class="btn-outline" style="width:100%; text-align:center;">Get Started</button>
+      <a href="https://apexdigitalbos.com/audit-form.html" target="_blank" class="btn-outline" style="width:100%; text-align:center; text-decoration:none; display:block; padding:14px;">Get Started</a>
     </div>
 
     <div class="pricing-card featured">
@@ -814,26 +948,9 @@
         <li>Landing page build for each program/sport</li>
         <li>Bi-weekly strategy calls</li>
       </ul>
-      <button class="btn-primary" style="width:100%; text-align:center;">Get Started</button>
+      <a href="https://apexdigitalbos.com/audit-form.html" target="_blank" class="btn-primary" style="width:100%; text-align:center; text-decoration:none; display:block; padding:14px;">Get Started</a>
     </div>
 
-    <div class="pricing-card">
-      <div class="plan-name">Elite</div>
-      <div class="plan-price"><span>$</span>5,500</div>
-      <div class="plan-period">per month</div>
-      <div class="plan-tagline">Full-service. Maximum competitive advantage.</div>
-      <ul class="plan-features">
-        <li>Everything in Growth</li>
-        <li>Custom website build or full redesign</li>
-        <li>Recruiting & college coach targeting campaigns</li>
-        <li>SMS enrollment and retention sequences</li>
-        <li>Competitor monitoring & positioning strategy</li>
-        <li>Quarterly video production day on-site</li>
-        <li>Dedicated account strategist</li>
-        <li>Weekly calls + Slack access</li>
-      </ul>
-      <button class="btn-outline" style="width:100%; text-align:center;">Get Started</button>
-    </div>
   </div>
 </section>
 
@@ -853,15 +970,36 @@
 
 <!-- FOOTER -->
 <footer>
-  <div class="logo">APEX<span>Digital</span></div>
+  <a href="https://apexdigitalbos.com" style="display:flex; align-items:center; text-decoration:none;">
+    <svg width="100" height="26" viewBox="0 0 680 240" xmlns="http://www.w3.org/2000/svg">
+      <g transform="translate(100, 120)">
+        <polygon points="0,-72 62,36 -62,36" fill="#e8b84b"/>
+        <polygon points="0,-36 28,16 -28,16" fill="#0a0a0a"/>
+        <rect x="-62" y="28" width="124" height="12" rx="2" fill="#c49a2e"/>
+        <line x1="-62" y1="36" x2="-18" y2="-10" stroke="#c49a2e" stroke-width="2.5" stroke-linecap="round"/>
+        <line x1="62" y1="36" x2="18" y2="-10" stroke="#c49a2e" stroke-width="2.5" stroke-linecap="round"/>
+      </g>
+      <text x="200" y="103" font-family="'Bebas Neue', sans-serif" font-size="82" letter-spacing="4" fill="#f2f1ed">APEX</text>
+      <text x="201" y="155" font-family="'Bebas Neue', sans-serif" font-size="52" letter-spacing="8" fill="#e8b84b">DIGITAL</text>
+    </svg>
+  </a>
   <div>Digital Marketing for Athletic Training Facilities · Greater Boston</div>
   <div>© 2026 APEX Digital</div>
 </footer>
 
-
-
-</body>
-</html>
-
+<script>
+function toggleMenu() {
+  const nav = document.getElementById('nav-links');
+  const btn = document.getElementById('hamburger');
+  nav.classList.toggle('open');
+  btn.classList.toggle('open');
+}
+document.querySelectorAll('#nav-links a').forEach(link => {
+  link.addEventListener('click', () => {
+    document.getElementById('nav-links').classList.remove('open');
+    document.getElementById('hamburger').classList.remove('open');
+  });
+});
+</script>
 </body>
 </html>
